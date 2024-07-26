@@ -29,17 +29,3 @@ func AddArguments(args ...*Arg) Commands {
 	cmd.addPrefixToArgs()
 	return cmd
 }
-
-func main() {
-	arg1 := NewArg("d", "delete", "deletes stuff", true)
-	arg2 := NewArg("u", "undo", "undo stuff", true)
-	cmds := AddArguments(arg1, arg2)
-
-	// for debugging :3
-	for _, cmd := range cmds {
-		fmt.Printf("ShortCmd: %s, LongCmd: %s, Desc: %s, Required: %t\n",
-			cmd.ShortCmd, cmd.LongCmd, cmd.Desc, cmd.Required)
-	}
-	cmds.Execute(os.Args)
-
-}
