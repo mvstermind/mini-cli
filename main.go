@@ -1,42 +1,35 @@
-package minicli
+package main
 
-import (
-	"fmt"
-)
-
-type Command struct {
-	ShortCmd []string
-	LongCmd  []string
+type Arg struct {
+	ShortCmd string
+	LongCmd  string
 	Desc     string
 	Required bool
 }
 
-func NewCommand(short, long string, desc string, required bool) *Command {
-	return &Command{
-		ShortCmd: []string{short},
-		LongCmd:  []string{long},
+type Commands []*Arg
+
+func NewArg(short, long string, desc string, required bool) *Arg {
+	return &Arg{
+		ShortCmd: short,
+		LongCmd:  long,
 		Desc:     desc,
 		Required: required,
 	}
 
 }
 
-func addPrefix(c *Command) *Command {
+func AddArguments(args ...*Arg) *Commands {
+	cmd := Commands{}
+	cmd = append(cmd, args...)
+	cmd.addPrefixToArgs()
+	return &cmd
+}
 
-	for i := 0; i < len(c.LongCmd); i++ {
-		addedVal := fmt.Sprintf("--%v", i)
-		c.LongCmd[i] = addedVal
+func main() {
 
-	}
-	for i := 0; i < len(c.ShortCmd); i++ {
-		addedVal := fmt.Sprintf("-%v", i)
-		c.ShortCmd[i] = addedVal
-	}
-	return &Command{
-		ShortCmd: c.ShortCmd,
-		LongCmd:  c.LongCmd,
-		Desc:     c.Desc,
-		Required: c.Required,
-	}
+	Arg := NewArg("d", "delete", "deletes stuff", true)
+	Arg2 := NewArg("u", "undo", "undo stuff", true)
+	_ = AddArguments(Arg, Arg2)
 
 }
