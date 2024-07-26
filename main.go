@@ -1,4 +1,4 @@
-package main
+package minicli
 
 import (
 	"fmt"
@@ -43,4 +43,3 @@ func main() {
 	cmds.Execute(os.Args)
 
 }
-

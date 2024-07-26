@@ -1,4 +1,4 @@
-package main
+package minicli
 
 import "fmt"
 
@@ -8,4 +8,3 @@ func (c Commands) addPrefixToArgs() {
 		v.LongCmd = fmt.Sprintf("--%v", v.LongCmd)
 	}
 }
-
