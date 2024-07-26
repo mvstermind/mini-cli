@@ -6,12 +6,12 @@ import (
 
 // wille execute all of given functions (only when i implement adding fucntionality)
 func (c Commands) Execute(arg []string) error {
-	_, err := c.scanInput(arg[1:])
+	returnval, err := c.scanInput(arg[1:])
 	if err != nil {
 		return err
 	}
 	// for debugging
-	// fmt.Println(returnval)
+	fmt.Println(returnval)
 
 	return nil
 }
@@ -21,7 +21,7 @@ func (c Commands) scanInput(args []string) (map[string]string, error) {
 
 	sysValues := make(map[string]string)
 
-	c.displayHelp(args)
+	c.checkIfHelp(args)
 
 	// Iterate over all commands in structs
 	for _, v := range c {
@@ -43,7 +43,7 @@ func (c Commands) scanInput(args []string) (map[string]string, error) {
 // displayHelp function scans os arguments.
 // Checks if it should display help info
 // if it will display help info, function will return true
-func (c Commands) displayHelp(cmdArgs []string) bool {
+func (c Commands) checkIfHelp(cmdArgs []string) bool {
 
 	if len(cmdArgs) == 0 {
 		fmt.Println("Use -h or --help")
@@ -55,10 +55,11 @@ func (c Commands) displayHelp(cmdArgs []string) bool {
 
 		// Iterate over all sys args
 		for i := 0; i < len(cmdArgs); i++ {
-			if cmdArgs[i] == v.ShortCmd || cmdArgs[i] == v.LongCmd && cmdArgs[i+1] == "" {
-				fmt.Printf("\nUsage: %v\n\n", v.Usage)
-				return true
-
+			if cmdArgs[i] == v.ShortCmd || cmdArgs[i] == v.LongCmd {
+				if len(cmdArgs[i+1]) >= len(cmdArgs) {
+					fmt.Printf("\nUsage: %v\n\n", v.Usage)
+					return true
+				}
 			}
 
 		}

@@ -15,7 +15,7 @@ func main() {
 	// for debugging :3
 	// for _, cmd := range cmds {
 	// 	fmt.Printf("ShortCmd: %s, LongCmd: %s, Desc: %s, Required: %t\n",
-	// 		cmd.ShortCmd, cmd.LongCmd, cmd.Desc, cmd.Required)
+	// 		cmd.ShortCmd, cmd.LongCmd, cmd.Usage, cmd.Required)
 	// }
 	cmds.Execute(os.Args)
 
