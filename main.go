@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 type Arg struct {
 	ShortCmd string
@@ -32,9 +35,12 @@ func main() {
 	arg2 := NewArg("u", "undo", "undo stuff", true)
 	cmds := AddArguments(arg1, arg2)
 
+	// for debugging :3
 	for _, cmd := range cmds {
 		fmt.Printf("ShortCmd: %s, LongCmd: %s, Desc: %s, Required: %t\n",
 			cmd.ShortCmd, cmd.LongCmd, cmd.Desc, cmd.Required)
 	}
+	cmds.Execute(os.Args)
+
 }
 
