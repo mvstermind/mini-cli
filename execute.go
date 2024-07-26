@@ -27,12 +27,13 @@ func (c Commands) scanInput(args []string) (map[string]string, error) {
 	for _, v := range c {
 		// Iterate over all sys args
 		for i := 0; i < len(args); i++ {
-			fmt.Println(args[0])
 
 			if args[i] == v.ShortCmd || args[i] == v.LongCmd {
-				sysValues[args[i]] = args[i+1]
+				// Check if there's a next argument before accessing it
+				if i+1 < len(args) && args[i+1] != "" {
+					sysValues[args[i]] = args[i+1]
+				}
 			}
-
 		}
 	}
 
@@ -55,7 +56,7 @@ func (c Commands) displayHelp(cmdArgs []string) bool {
 		// Iterate over all sys args
 		for i := 0; i < len(cmdArgs); i++ {
 			if cmdArgs[i] == v.ShortCmd || cmdArgs[i] == v.LongCmd && cmdArgs[i+1] == "" {
-				fmt.Printf("\nUsage: %v", v.Usage)
+				fmt.Printf("\nUsage: %v\n\n", v.Usage)
 				return true
 
 			}
