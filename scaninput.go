@@ -29,7 +29,10 @@ func (c Commands) scanInput(args []string) map[string]any {
 				if i+1 < len(args) && args[i+1] != "" {
 					// append to an map with only v.ShortCMD for faster dev time
 					sysValues[v.ShortCmd] = args[i+1]
+				} else {
+					sysValues[v.ShortCmd] = v.Default
 				}
+
 			}
 
 		}
