@@ -6,21 +6,16 @@ import (
 )
 
 // wille execute all of given functions (only when i implement adding fucntionality)
-func (c Commands) Execute() error {
-	returnval, err := c.scanInput(os.Args[1:])
-	if err != nil {
-		return err
-	}
-	// for debugging
-	fmt.Println(returnval)
+func (c Commands) Execute() map[string]any {
+	returnval := c.scanInput(os.Args[1:])
 
-	return nil
+	return returnval
 }
 
 // returns a value of argument that was seen next to ShortCmd or LongCmd
-func (c Commands) scanInput(args []string) (map[string]string, error) {
+func (c Commands) scanInput(args []string) map[string]any {
 
-	sysValues := make(map[string]string)
+	sysValues := make(map[string]any)
 
 	c.checkIfHelp(args)
 
@@ -32,13 +27,15 @@ func (c Commands) scanInput(args []string) (map[string]string, error) {
 			if args[i] == v.ShortCmd || args[i] == v.LongCmd {
 				// Check if there's a next argument before accessing it
 				if i+1 < len(args) && args[i+1] != "" {
-					sysValues[args[i]] = args[i+1]
+					// append to an map with only v.ShortCMD for faster dev time
+					sysValues[v.ShortCmd] = args[i+1]
 				}
 			}
+
 		}
 	}
 
-	return sysValues, nil
+	return sysValues
 }
 
 // checkIfHelp function scans os arguments.
@@ -66,8 +63,8 @@ func (c Commands) checkIfHelp(cmdArgs []string) {
 				fmt.Printf("%v  %v\n", v.ShortCmd, v.LongCmd)
 				fmt.Printf("\t%v\n", v.Usage)
 				fmt.Printf("\tRequired: %v\n", v.Required)
+				fmt.Printf("\t\tDefault value: %v\n", v.Default)
 			}
-
 		}
 	}
 

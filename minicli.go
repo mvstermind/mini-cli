@@ -12,12 +12,16 @@ package minicli
 // Usage: Short description of what this flag does, and how to use it.
 // "Usage" will be displayed when empty VALID flag is provided.
 //
+// Default: Described default value of an argument if it's not required
+// and it hasn't appeared in os.Args
+//
 // Required: Field that determines if flag is necessary for program to run.
 type Arg struct {
 	ShortCmd string
 	LongCmd  string
 	Usage    string
 	Required bool
+	Default  any
 }
 
 // type Commands keeps all of the command line arguments
@@ -25,12 +29,13 @@ type Arg struct {
 type Commands []*Arg
 
 // NewArg creates new argument for cli
-func NewArg(short, long, desc string, required bool) *Arg {
+func NewArg(short, long, usage string, required bool, defaultVal any) *Arg {
 	return &Arg{
 		ShortCmd: short,
 		LongCmd:  long,
-		Usage:    desc,
+		Usage:    usage,
 		Required: required,
+		Default:  defaultVal,
 	}
 }
 
