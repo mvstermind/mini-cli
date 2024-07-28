@@ -40,8 +40,18 @@ func (c Commands) scanInput(args []string) map[string]any {
 
 	// If this is true, it means required flag was ommitted.
 	// program cannot work properly,
-	if c.checkForRequired(sysValues) {
-		fmt.Printf("Required value wasn't included\nList of avilable commands:\n")
+	if values, ok := c.checkForRequired(sysValues); ok {
+		if len(values) == 1 {
+			fmt.Printf("Required value that wasn't included:\n")
+			fmt.Printf("%v\n", values[0])
+		}
+		if len(values) > 1 {
+			fmt.Printf("Required value that weren't included:\n")
+			for _, v := range values {
+				fmt.Printf("%v\n", v)
+			}
+		}
+		fmt.Printf("List of avilable commands:\n")
 		c.displayShortHelp()
 		return nil
 	}
@@ -75,16 +85,21 @@ func (c Commands) checkIfHelp(cmdArgs []string) {
 
 }
 
-// foundArgs are type of string at this point
-func (c Commands) checkForRequired(foundArgs map[string]any) bool {
+// checkForRequired are type of string at this point
+func (c Commands) checkForRequired(foundArgs map[string]any) ([]string, bool) {
 
+	var requiredButNotFound []string
 	for _, v := range c {
 
 		if v.Required && foundArgs[v.ShortCmd] == nil {
-			return true
+			requiredButNotFound = append(requiredButNotFound, fmt.Sprintf("%v | %v", v.ShortCmd, v.LongCmd))
 		}
 	}
-	return false
+
+	if len(requiredButNotFound) == 0 {
+		return nil, false
+	}
+	return requiredButNotFound, true
 
 }
 
