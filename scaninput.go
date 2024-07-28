@@ -35,6 +35,14 @@ func (c Commands) scanInput(args []string) map[string]any {
 		}
 	}
 
+	// If this is true, it means required flag was ommitted.
+	// program cannot work properly,
+	if c.checkForRequired(sysValues) == true {
+		fmt.Printf("Required value wasn't included\nList of avilable commands:\n")
+		c.displayShortHelp()
+		return nil
+	}
+
 	return sysValues
 }
 
@@ -68,4 +76,30 @@ func (c Commands) checkIfHelp(cmdArgs []string) {
 		}
 	}
 
+}
+
+// foundArgs are type of string at this point
+func (c Commands) checkForRequired(foundArgs map[string]any) bool {
+
+	for _, v := range c {
+
+		if v.Required == true && foundArgs[v.ShortCmd] == nil {
+			return true
+		}
+
+	}
+
+	return false
+
+}
+
+func (c Commands) displayShortHelp() {
+
+	for _, v := range c {
+		fmt.Println()
+		fmt.Printf("%v  %v\n", v.ShortCmd, v.LongCmd)
+		fmt.Printf("\t%v\n", v.Usage)
+		fmt.Printf("\tRequired: %v\n", v.Required)
+		fmt.Printf("\t\tDefault value: %v\n", v.Default)
+	}
 }
