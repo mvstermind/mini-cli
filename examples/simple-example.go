@@ -17,7 +17,9 @@ func main() {
 	argValues := cmds.Execute()
 
 	// To acces value of flag, index into map argValues with shorter version of flag name
-	fmt.Println(argValues["-u"])
+	for v := range argValues {
+		fmt.Println(argValues[v])
+	}
 
 	// noticed that os.Args are str by default, find a way to make convert them afterwards
 	// fmt.Printf("%t\n", argValues["-u"])

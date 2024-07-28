@@ -37,7 +37,7 @@ func (c Commands) scanInput(args []string) map[string]any {
 
 	// If this is true, it means required flag was ommitted.
 	// program cannot work properly,
-	if c.checkForRequired(sysValues) == true {
+	if c.checkForRequired(sysValues) {
 		fmt.Printf("Required value wasn't included\nList of avilable commands:\n")
 		c.displayShortHelp()
 		return nil
@@ -83,7 +83,7 @@ func (c Commands) checkForRequired(foundArgs map[string]any) bool {
 
 	for _, v := range c {
 
-		if v.Required == true && foundArgs[v.ShortCmd] == nil {
+		if v.Required && foundArgs[v.ShortCmd] == nil {
 			return true
 		}
 	}
