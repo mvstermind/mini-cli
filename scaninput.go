@@ -86,9 +86,7 @@ func (c Commands) checkForRequired(foundArgs map[string]any) bool {
 		if v.Required == true && foundArgs[v.ShortCmd] == nil {
 			return true
 		}
-
 	}
-
 	return false
 
 }

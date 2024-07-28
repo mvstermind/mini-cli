@@ -19,5 +19,5 @@ func main() {
 	fmt.Println(argValues["-u"])
 
 	// noticed that os.Args are str by default, find a way to make convert them afterwards
-	fmt.Printf("%t\n", argValues["-u"])
+	// fmt.Printf("%t\n", argValues["-u"])
 }
