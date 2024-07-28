@@ -2,11 +2,12 @@ package minicli
 
 import (
 	"fmt"
+	"os"
 )
 
 // wille execute all of given functions (only when i implement adding fucntionality)
-func (c Commands) Execute(arg []string) error {
-	returnval, err := c.scanInput(arg[1:])
+func (c Commands) Execute() error {
+	returnval, err := c.scanInput(os.Args[1:])
 	if err != nil {
 		return err
 	}
@@ -38,4 +39,36 @@ func (c Commands) scanInput(args []string) (map[string]string, error) {
 	}
 
 	return sysValues, nil
+}
+
+// checkIfHelp function scans os arguments.
+// Checks if it should display help info to the user
+func (c Commands) checkIfHelp(cmdArgs []string) {
+
+	if len(cmdArgs) == 0 {
+		fmt.Println("Use -h or --help")
+	}
+
+	// Iterate over all commands in structs
+	for _, v := range c {
+
+		// Iterate over all sys args
+		for i := 0; i < len(cmdArgs); i++ {
+			if cmdArgs[i] == v.ShortCmd || cmdArgs[i] == v.LongCmd {
+				if i+1 >= len(cmdArgs) {
+					fmt.Printf("\nUsage: %v\n\n", v.Usage)
+				}
+			}
+
+			if cmdArgs[i] == "-h" || cmdArgs[i] == "--help" {
+
+				fmt.Println()
+				fmt.Printf("%v  %v\n", v.ShortCmd, v.LongCmd)
+				fmt.Printf("\t%v\n", v.Usage)
+				fmt.Printf("\tRequired: %v\n", v.Required)
+			}
+
+		}
+	}
+
 }
