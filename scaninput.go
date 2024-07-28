@@ -51,7 +51,7 @@ func (c Commands) scanInput(args []string) map[string]any {
 				fmt.Printf("%v\n", v)
 			}
 		}
-		fmt.Printf("List of avilable commands:\n")
+		fmt.Printf("\nList of avilable commands:\n")
 		c.displayShortHelp()
 		return nil
 	}
