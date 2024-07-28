@@ -8,10 +8,11 @@ import (
 
 // example
 func main() {
-	arg1 := minicli.NewArg("d", "delete", "Deletes stuff", true, "dupom")
-	arg2 := minicli.NewArg("u", "undo", "Undo stuff", true, 2)
+	del := minicli.NewArg("d", "delete", "Deletes stuff", true, "rm")
+	undo := minicli.NewArg("u", "undo", "Undo stuff", true, 2)
+	revert := minicli.NewArg("r", "revert", "Reverts stuff", false, "-2")
 
-	cmds := minicli.AddArguments(arg1, arg2)
+	cmds := minicli.AddArguments(del, undo, revert)
 
 	argValues := cmds.Execute()
 
