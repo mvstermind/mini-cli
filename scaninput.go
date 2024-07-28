@@ -62,12 +62,6 @@ func (c Commands) checkIfHelp(cmdArgs []string) {
 
 		// Iterate over all sys args
 		for i := 0; i < len(cmdArgs); i++ {
-			if cmdArgs[i] == v.ShortCmd || cmdArgs[i] == v.LongCmd {
-				if i+1 >= len(cmdArgs) {
-					fmt.Printf("\nUsage: %v\n\n", v.Usage)
-				}
-			}
-
 			if cmdArgs[i] == "-h" || cmdArgs[i] == "--help" {
 
 				fmt.Println()
