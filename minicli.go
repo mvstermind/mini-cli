@@ -47,5 +47,6 @@ func AddArguments(args ...*Arg) Commands {
 	cmd := Commands{}
 	cmd = append(cmd, args...)
 	cmd.addPrefixToArgs()
+
 	return cmd
 }

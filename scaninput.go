@@ -23,6 +23,9 @@ func (c Commands) scanInput(args []string) map[string]any {
 	for _, v := range c {
 		// Iterate over all sys args
 		for i := 0; i < len(args); i++ {
+			if args[i] == "-h" || args[i] == "--help" {
+				return nil
+			}
 
 			if args[i] == v.ShortCmd || args[i] == v.LongCmd {
 				// Check if there's a next argument before accessing it
@@ -82,6 +85,7 @@ func (c Commands) checkIfHelp(cmdArgs []string) {
 			}
 		}
 	}
+	fmt.Println()
 
 }
 
@@ -90,7 +94,6 @@ func (c Commands) checkForRequired(foundArgs map[string]any) ([]string, bool) {
 
 	var requiredButNotFound []string
 	for _, v := range c {
-
 		if v.Required && foundArgs[v.ShortCmd] == nil {
 			requiredButNotFound = append(requiredButNotFound, fmt.Sprintf("%v | %v", v.ShortCmd, v.LongCmd))
 		}
