@@ -1,4 +1,4 @@
-package minicli
+package mini
 
 // Arg struct containts all information about command line argument
 //

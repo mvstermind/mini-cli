@@ -1,4 +1,4 @@
-package minicli
+package mini
 
 import (
 	"fmt"
