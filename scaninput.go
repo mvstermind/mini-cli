@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-// wille execute all of given functions (only when i implement adding fucntionality)
+// Return value of arguments that were found in os.Args and thier associated values
 func (c Commands) Execute() map[string]string {
 	returnval := c.scanInput(os.Args[1:])
 
