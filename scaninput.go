@@ -6,16 +6,16 @@ import (
 )
 
 // wille execute all of given functions (only when i implement adding fucntionality)
-func (c Commands) Execute() map[string]any {
+func (c Commands) Execute() map[string]string {
 	returnval := c.scanInput(os.Args[1:])
 
 	return returnval
 }
 
 // returns a value of argument that was seen next to ShortCmd or LongCmd
-func (c Commands) scanInput(args []string) map[string]any {
+func (c Commands) scanInput(args []string) map[string]string {
 
-	sysValues := make(map[string]any)
+	sysValues := make(map[string]string)
 
 	c.checkIfHelp(args)
 
@@ -86,11 +86,11 @@ func (c Commands) checkIfHelp(cmdArgs []string) {
 }
 
 // checkForRequired are type of string at this point
-func (c Commands) checkForRequired(foundArgs map[string]any) ([]string, bool) {
+func (c Commands) checkForRequired(foundArgs map[string]string) ([]string, bool) {
 
 	var requiredButNotFound []string
 	for _, v := range c {
-		if v.Required && foundArgs[v.ShortCmd] == nil {
+		if v.Required && foundArgs[v.ShortCmd] == "" {
 			requiredButNotFound = append(requiredButNotFound, fmt.Sprintf("%v | %v", v.ShortCmd, v.LongCmd))
 		}
 	}
