@@ -21,7 +21,6 @@ type Arg struct {
 	LongCmd  string
 	Usage    string
 	Required bool
-	Default  any
 }
 
 // type Commands keeps all of the command line arguments
@@ -29,13 +28,12 @@ type Arg struct {
 type Commands []*Arg
 
 // NewArg creates new argument for cli
-func NewArg(short, long, usage string, required bool, defaultVal any) *Arg {
+func NewArg(short, long, usage string, required bool) *Arg {
 	return &Arg{
 		ShortCmd: short,
 		LongCmd:  long,
 		Usage:    usage,
 		Required: required,
-		Default:  defaultVal,
 	}
 }
 

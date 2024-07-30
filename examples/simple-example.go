@@ -15,12 +15,11 @@ func main() {
 		LongCmd:  "change",
 		Usage:    "Example usage",
 		Required: true,
-		Default:  "change nothing",
 	}
 
-	del := mini.NewArg("d", "delete", "Deletes stuff", true, "rm")
-	undo := mini.NewArg("u", "undo", "Undo stuff", true, 2)
-	revert := mini.NewArg("r", "revert", "Reverts stuff", false, "-2")
+	del := mini.NewArg("d", "delete", "Deletes stuff", true)
+	undo := mini.NewArg("u", "undo", "Undo stuff", true)
+	revert := mini.NewArg("r", "revert", "Reverts stuff", false)
 
 	// if arugment was created using struct, it must be passed to AddArguments using "&"
 	cmds := mini.AddArguments(&change, del, undo, revert)

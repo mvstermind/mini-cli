@@ -32,10 +32,7 @@ func (c Commands) scanInput(args []string) map[string]any {
 				if i+1 < len(args) && args[i+1] != "" {
 					// append to an map with only v.ShortCMD for faster dev time
 					sysValues[v.ShortCmd] = args[i+1]
-				} else {
-					sysValues[v.ShortCmd] = v.Default
 				}
-
 			}
 
 		}
@@ -81,7 +78,6 @@ func (c Commands) checkIfHelp(cmdArgs []string) {
 				fmt.Printf("%v  %v\n", v.ShortCmd, v.LongCmd)
 				fmt.Printf("\t%v\n", v.Usage)
 				fmt.Printf("\tRequired: %v\n", v.Required)
-				fmt.Printf("\t\tDefault value: %v\n", v.Default)
 			}
 		}
 	}
@@ -113,6 +109,5 @@ func (c Commands) displayShortHelp() {
 		fmt.Printf("%v  %v\n", v.ShortCmd, v.LongCmd)
 		fmt.Printf("\t%v\n", v.Usage)
 		fmt.Printf("\tRequired: %v\n", v.Required)
-		fmt.Printf("\t\tDefault value: %v\n", v.Default)
 	}
 }
