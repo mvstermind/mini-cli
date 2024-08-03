@@ -81,8 +81,6 @@ func (c Commands) checkIfHelp(cmdArgs []string) {
 			}
 		}
 	}
-	fmt.Println()
-
 }
 
 // checkForRequired are type of string at this point
