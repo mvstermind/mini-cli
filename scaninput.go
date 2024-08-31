@@ -42,11 +42,11 @@ func (c Commands) scanInput(args []string) map[string]string {
 	// program cannot work properly,
 	if values, ok := c.checkForRequired(sysValues); ok {
 		if len(values) == 1 {
-			fmt.Printf("Required value that wasn't included:\n")
+			fmt.Printf("Required flag that wasn't included:\n")
 			fmt.Printf("%v\n", values[0])
 		}
 		if len(values) > 1 {
-			fmt.Printf("Required value that weren't included:\n")
+			fmt.Printf("Required flags that weren't included:\n")
 			for _, v := range values {
 				fmt.Printf("%v\n", v)
 			}
